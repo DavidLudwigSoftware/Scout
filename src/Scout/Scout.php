@@ -15,7 +15,7 @@ class Scout
         $this->_constraints = require __DIR__ . '/Constraints/constraints.php';
     }
 
-    public function validate(array $fields)
+    public function validate(array $fields, array $files = [])
     {
         $this->_fields = $fields;
 
@@ -38,36 +38,33 @@ class Scout
     {
         $errors = [];
 
-        $rules = preg_split('/[\s]*\|[\s]*/', $ruleString);
+        $parser = new ScoutRuleParser();
+        $rules = $parser->parse($ruleString);
 
         foreach ($rules as $rule)
 
-            if ($error = $this->testRule($field, $value, $rule))
+            if ($error = $this->testRule($field, $value, $rule[0], $rule[1]))
 
                 $errors[] = $error;
 
         return $errors ?: Null;
     }
 
-    protected function testRule($field, $value, $rule)
+    protected function testRule($field, $value, $rule, $params)
     {
-        $rule = preg_split('/\(/', $rule, 2);
 
-        $constraint = new $this->_constraints[$rule[0]]($this);
-        $values = [];
+        $constraint = new $this->_constraints[$rule]($this);
 
-        if (isset($rule[1]))
+        if ($params !== Null)
         {
-            $values = eval('return [' . substr($rule[1], 0, -1) . '];');
-
-            $result = $constraint->test(trim($value), ...$values);
+            $result = $constraint->test(trim($value), ...$params);
         }
         else
 
-            $result = $constraint->test($value);
+            $result = $constraint->test(trim($value));
 
-        return ($result) ? Null : new ScoutError($rule[0],
-            $this->_env->locale()[$rule[0]], $field, $values);
+        return ($result) ? Null : new ScoutError($rule,
+            $this->_env->locale()[$rule], $field, $params);
     }
 
     public function environment()

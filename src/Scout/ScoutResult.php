@@ -12,9 +12,18 @@ class ScoutResult
         $this->_errors = array();
     }
 
+    public function empty()
+    {
+        return count($this->_errors) == 0;
+    }
+
+    public function noErrors()
+    {
+        return $this->empty();
+    }
+
     public function has($field)
     {
-        dd($this->_errors);
         return isset($this->_errors[$field]);
     }
 

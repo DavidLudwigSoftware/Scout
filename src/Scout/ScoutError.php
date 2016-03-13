@@ -14,7 +14,7 @@ class ScoutError
     {
         $this->_type = $type;
         $this->_field = $field;
-        $this->_values = $values;
+        $this->_values = $values ?: [];
         $this->_message = $message;
     }
 
