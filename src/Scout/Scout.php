@@ -27,14 +27,25 @@ class Scout
 
                 continue;
 
-            elseif ($error = $this->evaluate($field, $data[0], trim($data[1])))
+            elseif ($error = $this->evaluate('field', $field, $data[0], trim($data[1])))
+
+                $result->addErrors($error);
+
+
+        foreach ($files as $field => $data)
+
+            if (empty(trim($data[1])))
+
+                continue;
+
+            elseif ($error = $this->evaluate('file', $field, $data[0], trim($data[1])))
 
                 $result->addErrors($error);
 
         return $result;
     }
 
-    protected function evaluate($field, $value, string $ruleString)
+    protected function evaluate($type, $field, $value, string $ruleString)
     {
         $errors = [];
 
@@ -43,28 +54,31 @@ class Scout
 
         foreach ($rules as $rule)
 
-            if ($error = $this->testRule($field, $value, $rule[0], $rule[1]))
+            if ($error = $this->testRule($type, $field, $value, $rule[0], $rule[1]))
 
                 $errors[] = $error;
 
         return $errors ?: Null;
     }
 
-    protected function testRule($field, $value, $rule, $params)
+    protected function testRule($type, $field, $value, $rule, $params)
     {
+        $constraint = new $this->_constraints[$type][$rule]($this);
 
-        $constraint = new $this->_constraints[$rule]($this);
+        if ($type != 'file')
+
+            $value = trim($value);
 
         if ($params !== Null)
         {
-            $result = $constraint->test(trim($value), ...$params);
+            $result = $constraint->test($value, ...$params);
         }
         else
 
-            $result = $constraint->test(trim($value));
+            $result = $constraint->test($value);
 
         return ($result) ? Null : new ScoutError($rule,
-            $this->_env->locale()[$rule], $field, $params);
+            $this->_env->locale()[$type][$rule], $field, $params);
     }
 
     public function environment()
