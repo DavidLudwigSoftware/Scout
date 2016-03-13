@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'accepted' => 'Scout\Constraints\AcceptedConstraint',
+    'alpha'    => 'Scout\Constraints\AlphaConstraint',
+    'alnum'    => 'Scout\Constraints\AlphaNumConstraint',
+    'between'  => 'Scout\Constraints\BetweenConstraint',
+    'boolean'  => 'Scout\Constraints\BooleanConstraint',
+    'email'    => 'Scout\Constraints\EmailConstraint',
+    'float'    => 'Scout\Constraints\FloatConstraint',
+    'int'      => 'Scout\Constraints\IntegerConstraint',
+    'ip'       => 'Scout\Constraints\IPAddressConstraint',
+    'ipv4'     => 'Scout\Constraints\IPv4AddressConstraint',
+    'ipv6'     => 'Scout\Constraints\IPv6AddressConstraint',
+    'json'     => 'Scout\Constraints\JSONConstraint',
+    'lenmin'   => 'Scout\Constraints\LenMinConstraint',
+    'lenmax'   => 'Scout\Constraints\LenMaxConstraint',
+    'mac'      => 'Scout\Constraints\MACAddressConstraint',
+    'matches'  => 'Scout\Constraints\MatchesConstraint',
+    'max'      => 'Scout\Constraints\MaxConstraint',
+    'min'      => 'Scout\Constraints\MinConstraint',
+    'num'      => 'Scout\Constraints\NumericConstraint',
+    'regexp'    => 'Scout\Constraints\RegExpConstraint',
+    'required' => 'Scout\Constraints\RequiredConstraint',
+    'url'      => 'Scout\Constraints\URLConstraint',
+];

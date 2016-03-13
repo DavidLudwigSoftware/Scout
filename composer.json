@@ -1,0 +1,27 @@
+{
+    "name" : "scout",
+    "description" : "Scout form validation engine",
+    "license" : "MIT",
+    "keywords" : ["scout", "form", "validation", "engine"],
+    "authors" : [
+        {
+            "name" : "David Ludwig",
+            "email" : "davidludwigii@gmail.com"
+        }
+    ],
+    "require" : {},
+    "require-dev" : {},
+    "autoload": {
+        "files" : [
+
+        ],
+        "psr-4" : {
+            "Scout\\" : "src/Scout/"
+        }
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.0-dev"
+        }
+    }
+}
