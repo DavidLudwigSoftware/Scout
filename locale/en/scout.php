@@ -8,6 +8,7 @@ return [
         'between'  => '%1$s must be between %2$s and %3$s',
         'boolean'  => '%1$s must be a boolean value (e.g. True, False)',
         'email'    => '%1$s is an invalid email address',
+        'exists'   => '%1$s does not currently exist',
         'float'    => '%1$s is not a decimal number',
         'int'      => '%1$s is not a valid integer',
         'ip'       => '%1$s is not a valid IP address',
@@ -23,6 +24,7 @@ return [
         'num'      => '%1$s is not a numeric value',
         'regexp'   => '%1$s is not a valid regular expression',
         'required' => '%1$s is required',
+        'unique'      => '%1$s already exists',
         'url'      => '%1$s is not a valid URL',
     ],
     'file' => [

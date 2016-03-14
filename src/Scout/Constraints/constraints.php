@@ -8,6 +8,7 @@ return [
         'between'  => 'Scout\Constraints\Field\BetweenConstraint',
         'boolean'  => 'Scout\Constraints\Field\BooleanConstraint',
         'email'    => 'Scout\Constraints\Field\EmailConstraint',
+        'exists'   => 'Scout\Constraints\Field\ExistsConstraint',
         'float'    => 'Scout\Constraints\Field\FloatConstraint',
         'int'      => 'Scout\Constraints\Field\IntegerConstraint',
         'ip'       => 'Scout\Constraints\Field\IPAddressConstraint',
@@ -23,6 +24,7 @@ return [
         'num'      => 'Scout\Constraints\Field\NumericConstraint',
         'regexp'   => 'Scout\Constraints\Field\RegExpConstraint',
         'required' => 'Scout\Constraints\Field\RequiredConstraint',
+        'unique'   => 'Scout\Constraints\Field\UniqueConstraint',
         'url'      => 'Scout\Constraints\Field\URLConstraint',
     ],
     'file' => [

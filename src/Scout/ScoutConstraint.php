@@ -16,4 +16,14 @@ abstract class ScoutConstraint
     {
         return $this->_scout;
     }
+
+    public function environment()
+    {
+        return $this->_scout->environment();
+    }
+
+    public function database()
+    {
+        return $this->_scout->environment()->database();
+    }
 }
