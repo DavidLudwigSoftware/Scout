@@ -8,6 +8,6 @@ class RequiredConstraint extends ScoutConstraint
 {
     public function test($file)
     {
-        return $file !== Null;
+        return $file !== Null && !empty($file['name']);
     }
 }
