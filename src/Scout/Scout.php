@@ -27,7 +27,7 @@ class Scout
 
                 continue;
 
-            elseif ($error = $this->evaluate('field', $field, $data[0], trim($data[1])))
+            elseif ($error = $this->evaluate('field', $field, $data[0], trim($data[1]), @$data[2]))
 
                 $result->addErrors($error);
 
@@ -38,30 +38,36 @@ class Scout
 
                 continue;
 
-            elseif ($error = $this->evaluate('file', $field, $data[0], trim($data[1])))
+            elseif ($error = $this->evaluate('file', $field, $data[0], trim($data[1]), @$data[2]))
 
                 $result->addErrors($error);
 
         return $result;
     }
 
-    protected function evaluate($type, $field, $value, string $ruleString)
+    protected function evaluate($type, $field, $value, string $ruleString, $customMessages = [])
     {
         $errors = [];
 
         $parser = new ScoutRuleParser();
         $rules = $parser->parse($ruleString);
 
+        $messages = $this->_env->locale()[$type];
+
+        if ($customMessages)
+
+            $messages = array_merge($messages, $customMessages);
+
         foreach ($rules as $rule)
 
-            if ($error = $this->testRule($type, $field, $value, $rule[0], $rule[1]))
+            if ($error = $this->testRule($type, $field, $value, $rule[0], $rule[1], $messages[$rule[0]]))
 
                 $errors[] = $error;
 
         return $errors ?: Null;
     }
 
-    protected function testRule($type, $field, $value, $rule, $params)
+    protected function testRule($type, $field, $value, $rule, $params, $message)
     {
         $constraint = new $this->_constraints[$type][$rule]($this);
 
@@ -70,15 +76,19 @@ class Scout
             $value = trim($value);
 
         if ($params !== Null)
-        {
+
             $result = $constraint->test($value, ...$params);
-        }
+
         else
 
             $result = $constraint->test($value);
 
-        return ($result) ? Null : new ScoutError($rule,
-            $this->_env->locale()[$type][$rule], $field, $params);
+
+        if ($result)
+
+            return Null;
+
+        return new ScoutError($rule, $message, $field, $params);
     }
 
     public function environment()

@@ -1,6 +1,19 @@
 <?php
 
 
+function dd(...$args)
+{
+    echo "<pre>";
+
+    foreach ($args as $arg)
+
+        var_dump($arg);
+
+    echo "</pre>";
+
+    exit();
+}
+
 // Import the autoloader
 require __DIR__ . '/vendor/autoload.php';
 
@@ -20,11 +33,14 @@ $scout = new Scout\Scout($env);
 // Validate some fields
 $result = $scout->validate(
     [
-        'firstname' => ['David',              "required|alpha|lenmax(50)"],
-        'lastname'  => ['Ludwig',             "required|alpha|lenmax(50)"],
-        'email'     => ['example@domain.com', "required|email|unique('users','email')"],
-        'username'  => ['SirDavid',           "required|lenmin(3)|lenmax(25)"],
-    ],
+    //  Filed name      Field value            Field rules
+        'firstname'  => ['David',              "required|alpha|lenmax(50)", []],
+        'lastname'   => ['Ludwig',             "required|alpha|lenmax(50)"],
+        'email'      => ['example@domain.com', "required|email|unique('users','email')", ['unique' => 'That email already exists']],
+        'username'   => ['SirDavid',           "required|lenmin(3)|lenmax(25)"],
+        'password'   => ['myPassword',         "required|lenmin(6)"],
+        'repassword' => ['myPassword',         "required|matches('password')"]
+    ]
 );
 
 

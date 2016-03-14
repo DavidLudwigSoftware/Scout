@@ -1,10 +1,10 @@
 <?php
 
-namespace Scout\Constraints;
+namespace Scout\Constraints\Field;
 
 use Scout\ScoutConstraint;
 
-class MatchesConstraint extends ScoutConstraint
+class DifferentConstraint extends ScoutConstraint
 {
     public function test($value, $field)
     {
@@ -12,6 +12,6 @@ class MatchesConstraint extends ScoutConstraint
 
             return True;
 
-        return $value == $this->scout()->fieldValue($field);
+        return $value != $this->scout()->fieldValue($field);
     }
 }
