@@ -30,6 +30,7 @@ return [
     ],
     'file' => [
         'ext'      => 'Scout\Constraints\File\ExtensionConstraint',
+        'image'    => 'Scout\Constraints\File\ImageConstraint',
         'required' => 'Scout\Constraints\File\RequiredConstraint',
     ]
 ];

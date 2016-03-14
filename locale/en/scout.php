@@ -30,6 +30,7 @@ return [
     ],
     'file' => [
         'ext'      => '%1$s is an invalid file type',
+        'image'    => '%1$s is not a valid image',
         'required' => '%1$s is required',
     ]
 ];
