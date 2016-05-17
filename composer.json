@@ -1,5 +1,5 @@
 {
-    "name" : "scout",
+    "name" : "valib/scout",
     "description" : "Scout form validation engine",
     "license" : "MIT",
     "keywords" : ["scout", "form", "validation", "engine"],
