@@ -1,35 +1,42 @@
 <?php
 
-
 function dd(...$args)
 {
     echo "<pre>";
-
     foreach ($args as $arg)
-
         var_dump($arg);
-
     echo "</pre>";
-
     exit();
 }
 
 // Import the autoloader
 require __DIR__ . '/vendor/autoload.php';
 
-
-// Create a database connection
+// Create a database connection, using a PDO reference
 $db = require __DIR__ . '/db.php';
-
 
 // Create the scout environment
 $env = new Scout\ScoutEnvironment(__DIR__ .'/locale/en/scout.php', $db);
 
+// Create some new constraints dynamically
+$extendedConstraints = [
+    'field' => [
+        'test' => 'Scout\Constraints\Test\TestConstraint'
+    ]
+];
+
+$extendedLocale = [
+    'field' => [
+        'test' => 'Custom message for the test constraint'
+    ]
+];
+
+// Add the new constraints to the environment
+$env->addConstraints($extendedConstraints);
+$env->addLocale($extendedLocale);
 
 // Create an instance of scout
 $scout = new Scout\Scout($env);
-
-
 
 if (!empty($_POST))
 {
@@ -37,7 +44,7 @@ if (!empty($_POST))
     $result = $scout->validate(
         [
         //  Filed name      Field value            Field rules
-            'firstname'  => ['David',              "required|alpha|lenmax(50)", []],
+            'firstname'  => ['David',              "required|alpha|lenmax(50)|test", []],
             'lastname'   => ['Ludwig',             "required|alpha|lenmax(50)"],
             'email'      => ['example@domain.com', "required|email|unique('users','email')", ['unique' => 'That email already exists']],
             'username'   => ['SirDavid',           "required|lenmin(3)|lenmax(25)"],
